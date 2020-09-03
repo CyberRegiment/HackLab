@@ -34,6 +34,6 @@ Username: _vagrant_
 Password: _vagrant_
 
 #### [Synched Folders](https://www.vagrantup.com/docs/synced-folders)
- The directory ``` ./public/ ```, found in the root of this repository is shared across all guest VMs under ``` /public/ ```.
+ The directory ``` ./public/ ```, found in the root of this repository is shared across the Kali guest VM under ``` /public/ ```.
 
 This is useful for executing ad-hoc scripts inside the sandbox.

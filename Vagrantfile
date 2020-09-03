@@ -6,14 +6,14 @@
 # backwards compatibility). Please don't change it unless you know what
 # you're doing.
 Vagrant.configure("2") do |config|
+config.vm.synced_folder ".", "/vagrant", disabled: true
+
   # The Attacker's battle station.
   config.vm.define "kali", primary: true do |subconfig|
   subconfig.vm.box = "kalilinux/rolling"
   subconfig.vm.hostname = "kali"
   subconfig.vm.network :private_network, ip: "10.0.0.10"
-
-  config.vm.synced_folder ".", "/vagrant", disabled: true
-  config.vm.synced_folder "./public/", "/public/"
+  subconfig.vm.synced_folder "./public/", "/public/"
   end
 
   # Targets
