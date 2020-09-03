@@ -11,6 +11,9 @@ Vagrant.configure("2") do |config|
   subconfig.vm.box = "kalilinux/rolling"
   subconfig.vm.hostname = "kali"
   subconfig.vm.network :private_network, ip: "10.0.0.10"
+
+  config.vm.synced_folder ".", "/vagrant", disabled: true
+  config.vm.synced_folder "./public/", "/public/"
   end
 
   # Targets

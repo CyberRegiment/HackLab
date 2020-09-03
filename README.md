@@ -33,7 +33,7 @@ Username: _vagrant_
 
 Password: _vagrant_
 
-#### Synched Directories
-By [default](https://www.vagrantup.com/docs/synced-folders), Vagrant will share the root of the Vagrant project (this directory) with the guests at ``` /vagrant/ ```.
+#### [Synched Folders](https://www.vagrantup.com/docs/synced-folders)
+ The directory ``` ./public/ ```, found in the root of this repository is shared across all guest VMs under ``` /public/ ```.
 
 This is useful for executing ad-hoc scripts inside the sandbox.
