@@ -32,3 +32,8 @@ The default login credentials for Kali Linux when deployed via Vagrant is:
 Username: _vagrant_
 
 Password: _vagrant_
+
+#### Synched Directories
+By [default](https://www.vagrantup.com/docs/synced-folders), Vagrant will share the root of the Vagrant project (this directory) with the guests at ``` /vagrat/ ```.
+
+This is useful for executing ad-hoc scripts inside the sandbox.
