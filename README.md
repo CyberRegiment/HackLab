@@ -25,3 +25,9 @@ To reset targets,
 To shutdown environment,
 
 ``` vagrant suspend ```
+
+#### Logging into Kali
+The default login credentials for Kali Linux when deployed via Vagrant is:
+
+Username: _vagrant_
+Password: _vagrant_
