@@ -6,17 +6,22 @@
 # backwards compatibility). Please don't change it unless you know what
 # you're doing.
 Vagrant.configure("2") do |config|
-  # Define boxes
+  # The Attacker's battle station.
   config.vm.define "kali", primary: true do |subconfig|
   subconfig.vm.box = "kalilinux/rolling"
   subconfig.vm.hostname = "kali"
   subconfig.vm.network :private_network, ip: "10.0.0.10"
   end
 
-  config.vm.define "target1", autostart: false do |subconfig|
-  subconfig.vm.box = "ncaro/php7-debian8-apache-nginx-mysql"
-  subconfig.vm.hostname = "target1"
-  subconfig.vm.network :private_network, ip: "10.0.0.11"
+  # Targets
+  BOX_IMAGE = "ncaro/php7-debian8-apache-nginx-mysql"
+  NODE_COUNT = 1
+  (1..NODE_COUNT).each do |i|
+    config.vm.define "target#{i}" do |subconfig|
+      subconfig.vm.box = BOX_IMAGE
+      subconfig.vm.hostname = "target#{i}"
+      subconfig.vm.network :private_network, ip: "10.0.0.#{i + 10}"
+    end
   end
 
   # Install avahi on all machines
