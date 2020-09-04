@@ -1,0 +1,7 @@
+---
+- name: Update OSs
+  hosts: kali
+  become:         yes
+  become_method:  sudo
+  roles:
+   - common

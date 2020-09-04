@@ -1,0 +1,9 @@
+---
+
+- name: Upgrade packages
+  apt:
+    update_cache: yes
+    upgrade: dist
+  run_once: yes
+  tags:
+    - upgrade

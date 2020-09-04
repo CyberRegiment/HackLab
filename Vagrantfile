@@ -19,11 +19,6 @@ config.vm.synced_folder ".", "/vagrant", disabled: true
     v.memory = 4096
     v.cpus = 2
     end
-
-  # Update packages
-  subconfig.vm.provision "shell", after: :all, inline: <<-SHELL
-    apt update && apt upgrade -y
-  SHELL
   end
 
   # Targets
@@ -34,12 +29,35 @@ config.vm.synced_folder ".", "/vagrant", disabled: true
       subconfig.vm.box = BOX_IMAGE
       subconfig.vm.hostname = "target#{i}"
       subconfig.vm.network :private_network, ip: "10.0.0.#{i + 10}"
-
-      # Update packages
-      subconfig.vm.provision "shell", after: :all, inline: <<-SHELL
-        yum update && yum upgrade -y
-      SHELL
     end
+  end
+
+  # Execute automated deployment scripts
+  config.vm.provision "ansible", after: :all do |ansible|
+    ansible.compatibility_mode = "auto"
+    ansible.verbose = "vv"
+
+    # Call the default playbook.
+    ansible.playbook = "provisioning/site.yml"
+
+    # Optionally filter tags (string or array of strings)
+    ansible.tags = ["all,upgrade"]
+
+    # Set of inventory groups to be included in the auto-generated inventory file.
+    ansible.groups = {
+      "attackers" => ["kali"],
+      "kali:vars" => {"ansible_sudo_pass" => "vagrant"}
+    }
+
+    # Limit target boxes to a subset.
+    # ansible.limit = ""
+
+    ansible.ask_become_pass = false
+
+    # default password for vagrant boxes to allow sudo priviledges
+    ansible.extra_vars = {
+      ansible_sudo_pass: "vagrant"
+    }
   end
 
 end
