@@ -1,0 +1,20 @@
+---
+
+- name: Clean package cache
+  apt:
+    autoclean: yes
+
+- name: Install dependant packages
+  apt:
+    state: latest
+    pkg:
+    - python3-apt
+
+- name: Upgrade packages
+  apt:
+    update_cache: yes
+    upgrade: dist
+  run_once: yes
+  tags:
+    - upgrade
+    - never

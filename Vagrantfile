@@ -35,13 +35,13 @@ config.vm.synced_folder ".", "/vagrant", disabled: true
   # Execute automated deployment scripts
   config.vm.provision "ansible", after: :all do |ansible|
     ansible.compatibility_mode = "auto"
-    ansible.verbose = "vv"
+    ansible.verbose = "v"
 
     # Call the default playbook.
     ansible.playbook = "provisioning/site.yml"
 
     # Optionally filter tags (string or array of strings)
-    ansible.tags = ["all,upgrade"]
+    ansible.tags = ["all"]
 
     # Set of inventory groups to be included in the auto-generated inventory file.
     ansible.groups = {
