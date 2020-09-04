@@ -23,3 +23,6 @@
 - name: Upgrade packages for Kali Linux
   include_tasks: upgrade-kali.yml
   when: ansible_distribution == 'Kali GNU/Linux'
+  tags:
+    - upgrade
+    - never
