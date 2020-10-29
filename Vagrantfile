@@ -12,7 +12,7 @@ config.vm.synced_folder ".", "/vagrant", disabled: true
   config.vm.define "kali", primary: true do |subconfig|
   subconfig.vm.box = "kalilinux/rolling"
   subconfig.vm.network :private_network, ip: "10.0.0.10"
-  subconfig.vm.synced_folder "./public/", "/public/"
+  # subconfig.vm.synced_folder "./public/", "/public/"
   subconfig.vm.provider "virtualbox" do |v|
     v.gui = true
     v.name = "kali"

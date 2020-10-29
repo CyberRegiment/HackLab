@@ -1,5 +1,11 @@
 ---
 
+- name: Install prerequisites
+  apt:
+    state: latest
+    pkg:
+    - python-apt
+
 - name: Clean package cache
   apt:
     autoclean: yes
@@ -15,6 +21,3 @@
     update_cache: yes
     upgrade: dist
   run_once: yes
-  tags:
-    - upgrade
-    - never
