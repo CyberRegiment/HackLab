@@ -1,2 +1,3 @@
 ---
-- import_playbook: system-upgrade-playbook.yml
+- import_playbook: base-playbook.yml
+

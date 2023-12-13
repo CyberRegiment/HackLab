@@ -1,0 +1,2 @@
+[boxes]
+ansible ansible_connection=local
