@@ -43,7 +43,8 @@ Vagrant.configure("2") do |config|
   # the path on the host to the actual folder. The second argument is
   # the path on the guest to mount the folder. And the optional third
   # argument is a set of non-required options.
-  config.vm.synced_folder "./shared", "/vagrant_data/shared", SharedFoldersEnableSymlinksCreate: false
+  config.vm.synced_folder "./shared", "/vagrant_data/shared", SharedFoldersEnableSymlinksCreate: false, owner: "vagrant", mount_options: ["ro"],
+  group: "vagrant", mount_options: ["ro"]
 
   # Disable the default share of the current code directory. Doing this
   # provides improved isolation between the vagrant box and your host
@@ -63,8 +64,8 @@ Vagrant.configure("2") do |config|
     # Customize the amount of memory on the VM:
     vb.memory = "4096"
 
-    vb.cpus = 2
-    vb.customize ["modifyvm", :id, "--cpuexecutioncap", "75"]
+    vb.cpus = 4
+    # vb.customize ["modifyvm", :id, "--cpuexecutioncap", "75"]
     # vb.customize ["modifyvm", :id, "--vram", "1024"] # Video memory
 
     vb.name = "HackLab"
@@ -88,6 +89,7 @@ Vagrant.configure("2") do |config|
     ansible.verbose = "v"
     ansible.install = true
     
+    # ansible.vm.network :private_network, ip: "10.0.0.10" 
 
     # Call the default playbook.
     ansible.playbook = "provisioning/site.yml"
@@ -111,6 +113,17 @@ Vagrant.configure("2") do |config|
       ansible_sudo_pass: "vagrant"
     }
   end
+
+
+  # # Targets
+  # BOX_IMAGE = "cybersecurity/dvw10"
+  
+  # config.vm.define "target#{i}", autostart: true do |subconfig|
+  #     subconfig.vm.box = BOX_IMAGE
+  #     subconfig.vm.hostname = "target#{i}"
+  #     subconfig.vm.network :private_network, ip: "10.0.0.#{i + 10}"
+  # end
+
 
 
 end
