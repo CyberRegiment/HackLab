@@ -33,6 +33,7 @@ Vagrant.configure("2") do |config|
   # Create a private network, which allows host-only access to the machine
   # using a specific IP.
   # config.vm.network "private_network", ip: "192.168.33.10"
+  config.vm.network "private_network", type: "dhcp"
 
   # Create a public network, which generally matched to bridged network.
   # Bridged networks make the machine appear as another physical device on
@@ -83,6 +84,8 @@ Vagrant.configure("2") do |config|
 
   SHELL
 
+
+  
   # Execute automated deployment scripts
   config.vm.provision "ansible_local", after: :all do |ansible|
     # ansible.compatibility_mode = "auto"
@@ -113,17 +116,4 @@ Vagrant.configure("2") do |config|
       ansible_sudo_pass: "vagrant"
     }
   end
-
-
-  # # Targets
-  # BOX_IMAGE = "cybersecurity/dvw10"
-  
-  # config.vm.define "target#{i}", autostart: true do |subconfig|
-  #     subconfig.vm.box = BOX_IMAGE
-  #     subconfig.vm.hostname = "target#{i}"
-  #     subconfig.vm.network :private_network, ip: "10.0.0.#{i + 10}"
-  # end
-
-
-
 end

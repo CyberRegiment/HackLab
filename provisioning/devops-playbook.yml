@@ -1,8 +1,8 @@
 ---
 
-- name: Install note-taking tools
+- name: Install containerization tools
   hosts: all
   become:         yes
   become_method:  sudo
   roles:
-   - obsidian
+   - docker
