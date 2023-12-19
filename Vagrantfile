@@ -33,6 +33,7 @@ Vagrant.configure("2") do |config|
   # Create a private network, which allows host-only access to the machine
   # using a specific IP.
   # config.vm.network "private_network", ip: "192.168.33.10"
+  config.vm.network "private_network", type: "dhcp"
 
   # Create a public network, which generally matched to bridged network.
   # Bridged networks make the machine appear as another physical device on
@@ -43,7 +44,8 @@ Vagrant.configure("2") do |config|
   # the path on the host to the actual folder. The second argument is
   # the path on the guest to mount the folder. And the optional third
   # argument is a set of non-required options.
-  config.vm.synced_folder "./shared", "/vagrant_data/shared", SharedFoldersEnableSymlinksCreate: false
+  config.vm.synced_folder "./shared", "/vagrant_data/shared", SharedFoldersEnableSymlinksCreate: false, owner: "vagrant", mount_options: ["ro"],
+  group: "vagrant", mount_options: ["ro"]
 
   # Disable the default share of the current code directory. Doing this
   # provides improved isolation between the vagrant box and your host
@@ -63,8 +65,8 @@ Vagrant.configure("2") do |config|
     # Customize the amount of memory on the VM:
     vb.memory = "4096"
 
-    vb.cpus = 2
-    vb.customize ["modifyvm", :id, "--cpuexecutioncap", "75"]
+    vb.cpus = 4
+    # vb.customize ["modifyvm", :id, "--cpuexecutioncap", "75"]
     # vb.customize ["modifyvm", :id, "--vram", "1024"] # Video memory
 
     vb.name = "HackLab"
@@ -82,12 +84,15 @@ Vagrant.configure("2") do |config|
 
   SHELL
 
+
+  
   # Execute automated deployment scripts
   config.vm.provision "ansible_local", after: :all do |ansible|
     # ansible.compatibility_mode = "auto"
     ansible.verbose = "v"
     ansible.install = true
     
+    # ansible.vm.network :private_network, ip: "10.0.0.10" 
 
     # Call the default playbook.
     ansible.playbook = "provisioning/site.yml"
@@ -111,6 +116,4 @@ Vagrant.configure("2") do |config|
       ansible_sudo_pass: "vagrant"
     }
   end
-
-
 end
