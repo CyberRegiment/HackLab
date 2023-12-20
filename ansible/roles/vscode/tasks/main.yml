@@ -1,0 +1,35 @@
+---
+
+- name: Install Prerequisites
+  apt:
+    name:
+      - apt-transport-https
+      - ca-certificates
+      - curl
+      - gnupg-agent
+      - software-properties-common
+      - wget
+      - gpg
+    state: present
+
+- name: Add Microsoft GPG key
+  apt_key:
+    url: https://packages.microsoft.com/keys/microsoft.asc
+    state: present
+
+- name: Add Visual Studio Code repository
+  apt_repository:
+    repo: deb [arch=amd64] https://packages.microsoft.com/repos/vscode stable main
+    state: present
+
+- name: Install Visual Studio Code
+  apt:
+    name: code
+    state: latest
+
+# - name: Install Visual Studio Code extensions
+#   shell: code --install-extension {{ item }}
+#   args:
+#     executable: /usr/bin/code
+#   with_items: "{{ extensions }}"
+#   become_user: "{{ user }}"

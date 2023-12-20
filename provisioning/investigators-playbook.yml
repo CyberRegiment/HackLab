@@ -1,8 +1,0 @@
----
-
-- name: Install note-taking tools
-  hosts: all
-  become:         yes
-  become_method:  sudo
-  roles:
-   - obsidian

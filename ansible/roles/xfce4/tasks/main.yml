@@ -1,0 +1,10 @@
+---
+
+- name: Update apt cache
+  apt:
+    update_cache: yes
+
+- name: Install xfce4
+  apt:
+    name: xfce4
+    state: present

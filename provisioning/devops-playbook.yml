@@ -1,8 +1,0 @@
----
-
-- name: Install containerization tools
-  hosts: all
-  become:         yes
-  become_method:  sudo
-  roles:
-   - docker

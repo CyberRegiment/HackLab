@@ -33,7 +33,8 @@ Vagrant.configure("2") do |config|
   # Create a private network, which allows host-only access to the machine
   # using a specific IP.
   # config.vm.network "private_network", ip: "192.168.33.10"
-  config.vm.network "private_network", type: "dhcp"
+  # config.vm.network "private_network", type: "dhcp"
+  config.vm.network "private_network", ip: "192.168.56.2"
 
   # Create a public network, which generally matched to bridged network.
   # Bridged networks make the machine appear as another physical device on
@@ -89,13 +90,13 @@ Vagrant.configure("2") do |config|
   # Execute automated deployment scripts
   config.vm.provision "ansible_local", after: :all do |ansible|
     # ansible.compatibility_mode = "auto"
-    ansible.verbose = "v"
+    ansible.verbose = "vv"
     ansible.install = true
     
     # ansible.vm.network :private_network, ip: "10.0.0.10" 
 
     # Call the default playbook.
-    ansible.playbook = "provisioning/site.yml"
+    ansible.playbook = "ansible/site.yml"
 
     # Optionally filter tags (string or array of strings)
     # ansible.tags = ["all"]
@@ -106,7 +107,7 @@ Vagrant.configure("2") do |config|
       "mymachine:vars" => {"ansible_sudo_pass" => "vagrant"}
     }
 
-    ansible.inventory_path = "provisioning/inventory"
+    ansible.inventory_path = "ansible/inventory"
 
     # Limit target boxes to a subset.
     ansible.limit = "all"

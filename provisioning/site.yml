@@ -1,5 +1,0 @@
----
-- import_playbook: base-playbook.yml
-- import_playbook: devops-playbook.yml
-- import_playbook: investigators-playbook.yml
-

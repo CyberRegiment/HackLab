@@ -1,0 +1,29 @@
+---
+
+- name: Create Downloads directory
+  file:
+    path: /home/vagrant/Downloads
+    state: directory
+    owner: vagrant
+
+- name: Download Tor Browser package
+  get_url:
+    url: https://www.torproject.org/dist/torbrowser/13.0.7/tor-browser-linux-x86_64-13.0.7.tar.xz
+    dest: /home/vagrant/Downloads/tor-browser-linux-x86_64-13.0.7.tar.xz
+    mode: '500'
+    checksum: sha512:c2e9e70914547fc0fec672e243d58869c6d7ffaa1d2f2bb0bd4243aea854e6f9e37d539ab58cd96c0874aa61d50a76f157d2c2ba9b69d2531cea3fdaa7bf4f85
+    owner: vagrant
+
+- name: Create Desktop directory
+  file:
+    path: /home/vagrant/Desktop
+    state: directory
+    owner: vagrant    
+
+- name: Extract Tor Browser package
+  unarchive:
+    src: /home/vagrant/Downloads/tor-browser-linux-x86_64-13.0.7.tar.xz
+    dest: /home/vagrant/Desktop
+    remote_src: yes
+    owner: vagrant
+    mode: '700'

@@ -1,0 +1,27 @@
+---
+- name: Upgrade packages for Debian-based or Ubuntu-based hosts  
+  apt:
+    update_cache: yes
+    upgrade: dist
+    run_once: yes
+  when: ansible_distribution == 'Debian' or ansible_distribution == 'Ubuntu'
+  tags:
+    - upgrade
+    - never
+
+- name: Upgrade packages for CentOS-based hosts  
+  dnf:
+    update_cache: yes
+    upgrade: dist
+    run_once: yes
+  when: ansible_distribution == 'CentOS'
+  tags:
+    - upgrade
+    - never
+
+- name: Upgrade packages for Kali Linux  
+  include_tasks: upgrade-kali.yml
+  when: ansible_distribution == 'Kali GNU/Linux'
+  tags:
+    - upgrade
+    - never

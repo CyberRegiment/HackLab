@@ -1,0 +1,10 @@
+---
+
+- name: Update apt cache
+  apt:
+    update_cache: yes
+
+- name: Install ubuntu-desktop
+  apt:
+    name: ubuntu-desktop
+    state: present
