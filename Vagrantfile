@@ -90,7 +90,7 @@ Vagrant.configure("2") do |config|
   # Execute automated deployment scripts
   config.vm.provision "ansible_local", after: :all do |ansible|
     # ansible.compatibility_mode = "auto"
-    ansible.verbose = "vv"
+    ansible.verbose = "vvv"
     ansible.install = true
     
     # ansible.vm.network :private_network, ip: "10.0.0.10" 
